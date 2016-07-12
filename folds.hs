@@ -21,3 +21,10 @@ map' xs f = foldr(\x acc -> f x : acc) [] xs
 -- value and then start the fold with the element next to it.
 
 --- sum = foldl1 (+)
+
+maximum' :: (Ord a) => [a] -> [a]
+maximum' = foldr(\x acc -> if x > acc then x else acc)
+
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' p = foldr (\x acc -> if p x then x : acc else acc) []
+  
