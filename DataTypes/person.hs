@@ -1,3 +1,4 @@
+-- record syntax
 data Person = Person { firstName :: String
                      , lastName :: String
                      , age :: Int
@@ -10,4 +11,3 @@ data Person = Person { firstName :: String
 
 -- ghci> :t firstName
 -- firstName :: Person -> String
- 
