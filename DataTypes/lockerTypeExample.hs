@@ -22,3 +22,6 @@ lockers = Map.fromList
     ,(109,(Taken,"893JJ"))
     ,(110,(Taken,"99292"))
     ]
+
+-- ghci> lockerLookup 101 lockers
+-- Right "JAH3I"  
