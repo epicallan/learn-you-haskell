@@ -2,16 +2,13 @@
 
 module Log where
 
-import Control.Applicative
-
-data MessageType = Info
-                 | Warning
+data MessageType = Info Int
+                 | Warning Int
                  | Error Int
   deriving (Show, Eq)
 
-type TimeStamp = Int
 
-data LogMessage = LogMessage MessageType TimeStamp String
+data LogMessage = LogMessage MessageType String
                 | Unknown String
   deriving (Show, Eq)
 
