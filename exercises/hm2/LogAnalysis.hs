@@ -4,9 +4,9 @@ import Log
 -- exercise 1
 makeLogMessage :: [String] -> LogMessage
 makeLogMessage all@(x:y:xs)
-  | x == "I" = LogMessage (Info (read y)) (unwords xs)
-  | x == "E" = LogMessage (Error (read y)) (unwords xs)
-  | x == "W" = LogMessage (Warning (read y)) (unwords xs)
+  | x == "I" = LogMessage Info (read y) (unwords xs)
+  | x == "E" = LogMessage (Error $ read y) (read $ head xs) (unwords $ tail xs)
+  | x == "W" = LogMessage Warning (read y) (unwords xs)
   | otherwise = Unknown (unwords all)
 
 parseMessage :: String -> LogMessage
@@ -21,7 +21,10 @@ parse = map parseMessage . lines
 insert ::LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree = tree
 insert x Leaf = Node Leaf x Leaf
-insert x@(LogMessage (Info levelX) _) (Node left a@(LogMessage (Info levelA) _) right)
-  | levelX == levelA = Node left x right
-  | levelX < levelA  = Node (insert x left) a right
-  | levelX > levelA  = Node left a (insert x right)
+insert x@(LogMessage _ timeStampX _) (Node left a@(LogMessage _ timeStampA _) right)
+  | timeStampX == timeStampA = Node left x right
+  | timeStampX < timeStampA  = Node (insert x left) a right
+  | timeStampX > timeStampA  = Node left a (insert x right)
+
+ build :: [LogMessage] -> MessageTree
+ -- build logMessages = foldl() insert Leaf logMessages
