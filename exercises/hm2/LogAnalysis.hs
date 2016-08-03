@@ -16,8 +16,6 @@ parseMessage message = makeLogMessage $ words message
 parse :: String -> [LogMessage]
 parse = map parseMessage . lines
 
--- exercise 2
--- sorting by type
 insert ::LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) tree = tree
 insert x Leaf = Node Leaf x Leaf
@@ -26,5 +24,25 @@ insert x@(LogMessage _ timeStampX _) (Node left a@(LogMessage _ timeStampA _) ri
   | timeStampX < timeStampA  = Node (insert x left) a right
   | timeStampX > timeStampA  = Node left a (insert x right)
 
- build :: [LogMessage] -> MessageTree
- -- build logMessages = foldl() insert Leaf logMessages
+build :: [LogMessage] -> MessageTree
+build = foldr insert Leaf
+
+-- findLogMessage :: MessageTree -> LogMessage
+
+inOrder :: MessageTree -> [LogMessage]
+inOrder a = [findLogMessage a]
+  where findLogMessage (Node Leaf x Leaf)   = x
+        findLogMessage (Node left x _)      = findLogMessage left
+        findLogMessage (Node _ x right)     = findLogMessage right
+
+
+getErrors :: LogMessage -> Bool
+getErrors (Unknown _) = False
+getErrors (LogMessage messageType _ message)
+  | messageType == Info     = False
+  | messageType == Warning  = False
+  | otherwise               = True
+
+
+whatWentWrong :: [LogMessage] -> [String]
+whatWentWrong  = map(\(LogMessage _ _ x) -> x).filter.getErrors
