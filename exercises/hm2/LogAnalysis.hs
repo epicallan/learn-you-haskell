@@ -27,14 +27,9 @@ insert x@(LogMessage _ timeStampX _) (Node left a@(LogMessage _ timeStampA _) ri
 build :: [LogMessage] -> MessageTree
 build = foldr insert Leaf
 
--- findLogMessage :: MessageTree -> LogMessage
-
 inOrder :: MessageTree -> [LogMessage]
-inOrder a = [findLogMessage a]
-  where findLogMessage (Node Leaf x Leaf)   = x
-        findLogMessage (Node left x _)      = findLogMessage left
-        findLogMessage (Node _ x right)     = findLogMessage right
-
+inOrder (Node Leaf x Leaf) =  [x]
+inOrder (Node left x right) =  x : inOrder left ++ inOrder right
 
 getErrors :: LogMessage -> Bool
 getErrors (Unknown _) = False
@@ -43,6 +38,5 @@ getErrors (LogMessage messageType _ message)
   | messageType == Warning  = False
   | otherwise               = True
 
-
 whatWentWrong :: [LogMessage] -> [String]
-whatWentWrong  = map(\(LogMessage _ _ x) -> x).filter.getErrors
+whatWentWrong  = map(\(LogMessage _ _ x) -> x).filter getErrors
