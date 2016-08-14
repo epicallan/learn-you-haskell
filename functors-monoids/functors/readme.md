@@ -207,6 +207,7 @@ Another way to implement sequenceA is with a fold. Remember, pretty much any fun
 ```
 sequenceA :: (Applicative f) => [f a] -> f [a]  
 sequenceA = foldr (liftA2 (:)) (pure [])  
+
 ```
 
 ```

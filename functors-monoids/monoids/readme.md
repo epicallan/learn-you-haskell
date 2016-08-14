@@ -70,11 +70,11 @@ lengthCompare x y = (length x `compare` length y) `mappend`
 One way to make a type constructor an instance of Foldable is to just directly implement foldr for it. But another, often much easier way, is to implement the foldMap function, which is also a part of the Foldable type class.
 
 
-``foldMap :: (Monoid m, Foldable t) => (a -> m) -> t a -> m   ``
+``foldMap :: (Monoid m, Foldable t) => (a -> m) -> t a -> m ``
 
 Given a tree
 
-``data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)   ``
+``data Tree a = Empty | Node a (Tree a) (Tree a) deriving (Show, Read, Eq)``
 
 making it an instance of Foldable is as below
 

@@ -1,4 +1,12 @@
 ## Random Notes
+
+folds simplification
+
+```
+foldr f z [a,b,c] == a `f` (b `f` (c `f` z))
+foldl f z [a,b,c] == ((z `f` a) `f` b) `f` c
+```
+
 case syntax
 
 ```case exp of
