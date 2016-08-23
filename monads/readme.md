@@ -125,3 +125,18 @@ ghci> [ x | x <- [1..50], '7' `elem` show x ]
 [7,17,27,37,47]  
 ```
 So filtering in list comprehensions is the same as using guard.
+
+monadic composition
+```
+(<=<) :: (Monad m) => (b -> m c) -> (a -> m b) -> (a -> m c)  
+f <=< g = (\x -> g x >>= f)  
+```
+Example
+```
+ghci> let f x = [x,-x]  
+ghci> let g x = [x*3,x*2]  
+ghci> let h = f <=< g  
+ghci> h 3  
+[9,-9,6,-6]  
+
+```
