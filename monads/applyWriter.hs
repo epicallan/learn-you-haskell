@@ -1,10 +1,13 @@
-import Control.Monad.Trans.Writer
+module WriterTest where
+import Control.Monad.Writer
 
-logNumber :: (Show a, Monad m) => a -> WriterT [String] m
-logNumber x = writer (x, ["Got number: " ++ show x])
+logNumber :: Int -> Writer [String] Int
+logNumber x = Writer (x, ["Got number: " ++ show x])
 
-multWithLog :: MonadWriter [String] m
+
+multWithLog :: Writer [String] Int
 multWithLog = do
     a <- logNumber 3
     b <- logNumber 5
+    tell ["Gonna multiply these two"]
     return (a*b)

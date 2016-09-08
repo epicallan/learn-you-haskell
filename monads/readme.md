@@ -140,3 +140,32 @@ ghci> h 3
 [9,-9,6,-6]  
 
 ```
+
+Functors Applicative Functors & Mondads
+
+- Functors are types that can be mapped over
+- Applicative functors allow us to apply normal functions between several applicative values as well as to take a normal value and put it in some default context.
+- Monads are improved applicative functors which added the ability for these values with context to somehow be fed into normal functions
+
+But even though every monad is a functor, we don't have to rely on it having a Functor instance because of the liftM function. liftM takes a function and a monadic value and maps it over the monadic value. So it's pretty much the same thing as fmap! This is liftM's type:
+
+```
+liftM :: (Monad m) => (a -> b) -> m a -> m b  
+
+-- fmap for functors
+fmap :: (Functor f) => (a -> b) -> f a -> f b  
+
+-- liftM definition
+liftM :: (Monad m) => (a -> b) -> m a -> m b  
+liftM f m = do  
+    x <- m  
+    return (f x)  
+```
+
+The liftA2 function is a convenience function for applying a function between two applicative values. It's defined simply like so:
+
+```
+liftA2 :: (Applicative f) => (a -> b -> c) -> f a -> f b -> f c  
+liftA2 f x y = f <$> x <*> y  
+```
+The liftM2 function does the same thing, only it has a Monad constraint. There also exist liftM3 and liftM4 and liftM5.
