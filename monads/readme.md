@@ -141,7 +141,7 @@ ghci> h 3
 
 ```
 
-Functors Applicative Functors & Mondads
+### Functors Applicative Functors & Mondads
 
 - Functors are types that can be mapped over
 - Applicative functors allow us to apply normal functions between several applicative values as well as to take a normal value and put it in some default context.
@@ -169,3 +169,31 @@ liftA2 :: (Applicative f) => (a -> b -> c) -> f a -> f b -> f c
 liftA2 f x y = f <$> x <*> y  
 ```
 The liftM2 function does the same thing, only it has a Monad constraint. There also exist liftM3 and liftM4 and liftM5.
+
+m >>= f always equals join (fmap f m) for
+
+### composing monadic functions
+\<=\< function is for composition in Monads
+
+```
+ghci> let f = (+1) . (*100)  
+ghci> f 4  
+401  
+ghci> let g = (\x -> return (x+1)) <=< (\x -> return (x*100))  
+ghci> Just 4 >>= g  
+Just 401  
+ghci> let f = foldr (.) id [(+1),(*100),(+1)]  
+ghci> f 1  
+201  
+```
+
+composing a bunch of monadic functions
+
+```
+in3 start = return start >>= moveKnight >>= moveKnight >>= moveKnight    
+-- can be generalized as below
+
+inMany :: Int -> KnightPos -> [KnightPos]  
+inMany x start = return start >>= foldr (<=<) return (replicate x moveKnight)  
+
+```
