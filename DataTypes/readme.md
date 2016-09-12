@@ -1,5 +1,5 @@
 
-## A quick recap on typeclasses:
+### A quick recap on typeclasses:
 
 Typeclasses are like interfaces. A typeclass defines some behavior (like comparing for equality, comparing for ordering, enumeration) and then types that can behave in that way are made instances of that typeclass.
 
@@ -17,3 +17,16 @@ class Eq a where
 
  > The a is the type variable and it means that a will play the role of the type that we will soon be making an instance of Eq.
  Then, we define several functions. It's not mandatory to implement the function bodies themselves, we just have to specify the type declarations for the functions.
+
+#### The type and newtype keywords
+Although their names are similar, the type and newtype keywords have different purposes. The type keyword gives us another way of referring to a type, like a nickname for a friend. Both we and the compiler know that [Char] and String names refer to the same type. 3 comments
+
+In contrast, the newtype keyword exists to hide the nature of a type. Consider a UniqueID type. No comments
+
+#### Here's a brief recap of Haskell's three ways to introduce new names for types
+
+> The data keyword introduces a truly new albegraic data type. 3 comments
+
+> The type keyword gives us a synonym to use for an existing type. We can use the type and its synonym interchangeably. 1 comment
+
+> The newtype keyword gives an existing type a distinct
