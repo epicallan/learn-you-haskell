@@ -25,8 +25,8 @@ In contrast, the newtype keyword exists to hide the nature of a type. Consider a
 
 #### Here's a brief recap of Haskell's three ways to introduce new names for types
 
-> The data keyword introduces a truly new albegraic data type. 3 comments
+> The data keyword introduces a truly new albegraic data type.
 
 > The type keyword gives us a synonym to use for an existing type. We can use the type and its synonym interchangeably. 1 comment
 
-> The newtype keyword gives an existing type a distinct
+> The newtype keyword gives an existing type a distinct meaning( its like a mask over an existing type)
