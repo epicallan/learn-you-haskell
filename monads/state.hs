@@ -12,9 +12,9 @@ push :: Int -> Stack -> ((), Stack)
 push a xs = ((), a:xs)
 
 stackManip :: Stack -> (Int, Stack)
-stackManip stack = let
+stackManip stack  = let
   ((), newStack1) = push 3 stack
-  (_, newStack2) = pop newStack1
+  (_, newStack2)  = pop newStack1
   in pop newStack2
 -- The Control.Monad.State module provides a newtype that wraps stateful computations. Here's its definition:
 

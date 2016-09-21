@@ -199,3 +199,14 @@ inMany :: Int -> KnightPos -> [KnightPos]
 inMany x start = return start >>= foldr (<=<) return (replicate x moveKnight)  
 
 ```
+
+The (=<<) function shows up frequently whether or not we use do notiation. It is a flipped version of (>>=)
+
+```
+ghci> :type (>>=)
+(>>=) :: (Monad m) => m a -> (a -> m b) -> m b
+ghci> :type (=<<)
+(=<<) :: (Monad m) => (a -> m b) -> m a -> m b
+
+wordCount = print . length . words =<< getContents
+```
