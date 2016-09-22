@@ -28,9 +28,9 @@ type RandomState a = State StdGen a
 
 getRandom :: Random a => RandomState a
 getRandom =
-  get >>= \gen ->
-  let (val, gen') = random gen in
-  put gen' >>
+  get `bindSate` \gen ->
+  let (val, gen') = random gen
+    in put gen' >>
   return val
 
 getTwoRandoms :: Random a => RandomState (a, a)
