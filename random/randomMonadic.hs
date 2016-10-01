@@ -49,3 +49,10 @@ getCountedRandom = do
   let (val, gen') = random (crGen st) -- extracts value
   put CountedRandom {crGen = gen',  crCount = crCount st + 1 }
   return val
+
+runCountedRandom :: IO (Int, Int)
+runCountedRandom = do
+  gen <- getStdGen
+  let (result, newState) = runState getCountedRandom CountedRandom {crGen = gen,  crCount = 0}
+  setStdGen ( crGen newState)
+  return (result, crCount newState)
