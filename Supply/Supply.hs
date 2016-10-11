@@ -8,6 +8,7 @@ module Supply
     ) where
 
 import Control.Monad.State
+import Control.Arrow
 import System.Random hiding (next)
 
 newtype Supply s a = S (State [s] a) deriving
